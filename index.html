@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>費用計算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 8px 0;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>費用計算器</h2>
+
+  <label for="distance">輸入里程（公里）：</label><br>
+  <input type="number" id="distance" step="0.1" min="0"><br>
+
+  <label for="multiplier">輸入倍率：</label><br>
+  <input type="number" id="multiplier" step="0.1" min="0"><br>
+
+  <button onclick="計算費用()">計算</button>
+
+  <div id="result"></div>
+
+  <script>
+    function 計算費用() {
+      const distance = parseFloat(document.getElementById('distance').value);
+      const multiplier = parseFloat(document.getElementById('multiplier').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(distance) || isNaN(multiplier) || distance < 0 || multiplier < 0) {
+        resultDiv.innerText = "請輸入正確的里程和倍率數值。";
+        return;
+      }
+
+      let baseFare = 0;
+
+      if (distance <= 2.5) {
+        baseFare = 30;
+      } else {
+        baseFare = 30 + (distance - 2.5) * 15;
+      }
+
+      const total = baseFare * multiplier;
+
+      resultDiv.innerText = `總費用：${total.toFixed(1)} 元`;
+    }
+  </script>
+
+</body>
+</html>
